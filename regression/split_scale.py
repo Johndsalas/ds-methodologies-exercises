@@ -29,7 +29,7 @@ def split_my_data(x, y, train_pct):
     return x_train, x_test, y_train, y_test
 
 
-def split_data_whole(df):
+def split_data_whole(df,train_pct=.7):
 
     train, test = train_test_split(df, train_size = train_pct, random_state = 999)
 
@@ -56,12 +56,6 @@ def scale_inverse(train_scaled,test_scaled):
 
         return train_unscaled, test_unscaled, scaler
 
-train, test = split_data_whole(df)
-print(train)
-train_scaled, test_scaled = standard_scaler(train,test)
-print(train_scaled)
-train_unscaled, test_unscaled = scale_inverse(train_scaled,test_scaled)
-print(train_unscaled)
 
 def uniform_scaler(train,test):
 
