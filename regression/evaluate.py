@@ -47,6 +47,8 @@ x = 'x'
 y = 'y'
 dataframe = df
 
+df
+
 def plot_residuals(x, y, dataframe):
 
     return sns.residplot(x=x,y=y,data=dataframe)
@@ -64,11 +66,11 @@ yhat = df.yhat
 
 def regression_errors(y, yhat):
 
-    SSE = sum(yhat)
-    ESS = sum((df.yhat - df.y.mean())**2)
-    TSS = ESS + SSE
-    MSE = SSE/len(yhat)
-    RMSE = sqrt(MSE)
+    SSE1 = sum(yhat)
+    ESS1 = sum((df.yhat - df.y.mean())**2)
+    TSS1 = ESS + SSE
+    MSE1 = SSE/len(yhat)
+    RMSE1 = sqrt(MSE)
 
     return SSE, ESS, TSS, MSE, RMSE
 
@@ -78,17 +80,59 @@ def regression_errors(y, yhat):
 
 y = df.y
 
+
+
 def baseline_mean_errors(y):
 
-    SSE = sum(y)
-    MSE = SSE/len(y)
-    RMSE = sqrt(MSE)
+    df['yhat_base'] = y.mean()
 
-    return SSE, MSE, RMSE
+    SSE_baseline = sum(df.yhat_base)
+    MSE_baseline = SSE_baseline/len(df.yhat_base)
+    RMSE_baseline = sqrt(MSE_baseline)
+
+    return SSE_baseline, MSE_baseline, RMSE_baseline
 
 baseline_mean_errors(y)
-# Write a function, baseline_mean_errors(y), that takes in your target, y, computes the SSE, MSE & RMSE when yhat is equal to the mean of all y, and returns the error values (SSE, MSE, and RMSE).
 
-# Write a function, better_than_baseline(SSE), that returns true if your model performs better than the baseline, otherwise false.
+# Write a function, better_than_baseline(SSE), that returns true if your model performs better than the baseline, 
+# otherwise false.
 
-# Write a function, model_significance(ols_model), that takes the ols model as input and returns the amount of variance explained in your model, and the value telling you whether the correlation between the model and the tip value are statistically significant.
+def better_than_baseline(y,yhat):
+
+    SSE = sum(yhat)
+    ESS = sum((df.yhat - df.y.mean())**2)
+    TSS = ESS + SSE
+    R2_test = ESS/TSS
+
+    df['yhat_base'] = y.mean()
+
+    SSE_base = sum(df.yhat_base)
+    ESS_base = sum((df.yhat_base - df.y.mean())**2)
+    TSS_base = ESS_base + SSE_base
+    R2_base = ESS_base/TSS_base
+
+    print(f"SSE base: {SSE_base}")
+
+    print(f"test R-squared: {R2_test}")
+    print(f"base R-squared: {R2_base}")
+
+    return R2_test > R2_base
+
+
+
+# Write a function, model_significance(ols_model), that takes the ols model as input and returns the amount of variance explained in your model,
+# and the value telling you whether the correlation between the model and the tip value are statistically significant.
+
+import statsmodels
+
+ols_model = df[['x','y']]
+
+def model_significance(ols_model):
+
+    R2 = ols_model.rsquared
+
+    P = ols_model.f_pvalue
+
+    return f"The amount of variance explained in this modle is {R2} and the Pvalue for the modle is {P}. "
+
+model_significance(ols_model)
