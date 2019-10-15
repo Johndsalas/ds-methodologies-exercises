@@ -38,11 +38,8 @@ def wrangle_telco():
 
     df = pd.read_sql(query, url)
 
-    df.replace(' ', np.nan, regex=True, inplace=True)
-   
-    df.total_charges = df.total_charges.dropna().astype(float)
+    df.total_charges = df.total_charges.str.strip().replace('', np.nan).astype(float)
+
+    df = df.dropna()
    
     return df
-
-
-

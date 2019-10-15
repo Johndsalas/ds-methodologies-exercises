@@ -18,7 +18,7 @@ x = df[['total_charges']]
 
 y = df[['tenure','monthly_charges']]
 
-train_pct = .7
+train_pct = .8
 
 df = df.drop(columns='customer_id')
 
@@ -27,6 +27,8 @@ def split_my_data(x, y, train_pct):
     x_train, x_test, y_train, y_test =  train_test_split(x,y, train_size = train_pct, random_state = 999)
 
     return x_train, x_test, y_train, y_test
+
+
 
 
 def split_data_whole(df,train_pct=.7):

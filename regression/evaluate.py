@@ -66,13 +66,15 @@ yhat = df.yhat
 
 def regression_errors(y, yhat):
 
-    SSE1 = sum(yhat)
-    ESS1 = sum((df.yhat - df.y.mean())**2)
-    TSS1 = ESS + SSE
-    MSE1 = SSE/len(yhat)
-    RMSE1 = sqrt(MSE)
+    SSE = sum(yhat)
+    ESS = sum((df.yhat - df.y.mean())**2)
+    TSS = ESS + SSE
+    MSE = SSE/len(yhat)
+    RMSE = sqrt(MSE)
 
     return SSE, ESS, TSS, MSE, RMSE
+
+regression_errors(y,yhat)
 
 # Write a function, baseline_mean_errors(y), that takes in your target, y, 
 # computes the SSE, MSE & RMSE 
@@ -92,7 +94,7 @@ def baseline_mean_errors(y):
 
     return SSE_baseline, MSE_baseline, RMSE_baseline
 
-baseline_mean_errors(y)
+
 
 # Write a function, better_than_baseline(SSE), that returns true if your model performs better than the baseline, 
 # otherwise false.
@@ -100,7 +102,7 @@ baseline_mean_errors(y)
 def better_than_baseline(y,yhat):
 
     SSE = sum(yhat)
-    ESS = sum((df.yhat - df.y.mean())**2)
+    ESS = sum((yhat - df.y.mean())**2)
     TSS = ESS + SSE
     R2_test = ESS/TSS
 
@@ -111,21 +113,24 @@ def better_than_baseline(y,yhat):
     TSS_base = ESS_base + SSE_base
     R2_base = ESS_base/TSS_base
 
-    print(f"SSE base: {SSE_base}")
-
     print(f"test R-squared: {R2_test}")
     print(f"base R-squared: {R2_base}")
 
     return R2_test > R2_base
 
-
+better_than_baseline(y,yhat)
 
 # Write a function, model_significance(ols_model), that takes the ols model as input and returns the amount of variance explained in your model,
 # and the value telling you whether the correlation between the model and the tip value are statistically significant.
 
-import statsmodels
 
-ols_model = df[['x','y']]
+
+df = df[['x','y']]
+
+df['yhat'] = regr.predict(df.x)
+
+ols_model = ols('y ~ x', data=df).fit()
+
 
 def model_significance(ols_model):
 
@@ -133,6 +138,6 @@ def model_significance(ols_model):
 
     P = ols_model.f_pvalue
 
-    return f"The amount of variance explained in this modle is {R2} and the Pvalue for the modle is {P}. "
+    return f"The amount of variance explained in this modle is {round(R2, 3)} and the Pvalue for the modle is {round(P, 6)}."
 
 model_significance(ols_model)
