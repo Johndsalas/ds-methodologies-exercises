@@ -19,6 +19,8 @@ import split_scale as ss
 
 df = w.wrangle_telco()
 
+df
+
 x = df[['tenure','monthly_charges']]
 
 y = df[['total_charges']]
@@ -51,7 +53,7 @@ def select_kbest_freg_unscaled(x_train, y_train, k):
     print(str(len(f_feature)), 'selected features')
     print(f_feature)
     
-select_kbest_freg_unscaled(x_train, y_train, k)
+
 
 # 2. Write a function, select_kbest_freg_scaled() that takes X_train, y_train (scaled) and k as input
 #  and returns a list of the top k features.
@@ -79,7 +81,7 @@ def select_kbest_freg_scaled(x_train_scaled, y_train, k):
     print(str(len(f_feature)), 'selected features')
     print(f_feature)
 
-select_kbest_freg_scaled(x_train_scaled, y_train_scaled, k)
+
 # 3. Write a function, ols_backwared_elimination() that takes X_train and y_train (scaled) as input and returns 
 # selected features based on the ols backwards elimination method.
 
@@ -109,7 +111,7 @@ def ols_backwared_elimination(x_train_scaled,y_train):
 
     return cols
 
-ols_backwared_elimination(x_train_scaled,y_train)
+
 
 # Write a function, lasso_cv_coef() that takes X_train and y_train as input 
 # and returns the coefficients for each feature, along with a plot of the features and their weights.
@@ -131,7 +133,7 @@ def lasso_cv_coef(X_train,y_train):
 
     return coef
 
-lasso_cv_coef(x_train,y_train)
+
 
 # Write 3 functions, the first computes the number of optimum features (n) using rfe, 
 # the second takes n as input and returns the top n features, and the 
@@ -163,3 +165,26 @@ def recursive_feature_elimination(x_train,y_train):
     return number_of_features
 
 n = recursive_feature_elimination(x_train,y_train)
+
+
+def select_kbest_freg_scaled2(x_train, y_train, n):
+
+    f_selector = SelectKBest(f_regression, k=n).fit(x_train,y_train)
+
+    f_support = f_selector.get_support()
+
+    f_feature = x_train.loc[:,f_support].columns.tolist()
+
+    return f_feature
+
+feature_list = select_kbest_freg_scaled2(x_train_scaled, y_train, n)
+
+def get_new_table(feature_list,df):
+
+    df = df[feature_list]
+
+    x_train, x_test = train_test_split(df, train_size=.8, random_state = 999)
+
+    return x_train, x_test
+
+x_train, x_test = get_new_table(feature_list,df)
