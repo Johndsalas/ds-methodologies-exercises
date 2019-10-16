@@ -65,14 +65,24 @@ yhat = df.yhat
 
 
 def regression_errors(y, yhat):
+    '''
+    Returns a dictionary containing various regression error metrics.
+    '''
+    n = y.size
+    residuals = yhat - y
+    ybar = y.mean()
 
-    SSE = sum(yhat)
-    ESS = sum((df.yhat - df.y.mean())**2)
-    TSS = ESS + SSE
-    MSE = SSE/len(yhat)
-    RMSE = sqrt(MSE)
+    sse = sum(residuals**2)
 
-    return SSE, ESS, TSS, MSE, RMSE
+    ess = ((yhat - ybar)**2).sum()
+
+    return {
+        'sse': sse,
+        'mse': sse / n,
+        'rmse': sqrt(sse / n),
+        'ess': ess,
+        'tss': ess + sse,
+    }
 
 regression_errors(y,yhat)
 
@@ -83,16 +93,23 @@ regression_errors(y,yhat)
 y = df.y
 
 
-
 def baseline_mean_errors(y):
+    '''
+    Returns a dictionary containing various regression error metrics for a
+    baseline model, that is, a model that uses the mean of y as the prediction.
+    '''
+    yhat = y.mean()
+    n = y.size
+    residuals = yhat - y
 
-    df['yhat_base'] = y.mean()
+    sse = sum(residuals**2)
 
-    SSE_baseline = sum(df.yhat_base)
-    MSE_baseline = SSE_baseline/len(df.yhat_base)
-    RMSE_baseline = sqrt(MSE_baseline)
+    return {
+        'sse': sse,
+        'mse': sse / n,
+        'rmse': sqrt(sse / n),
+    }
 
-    return SSE_baseline, MSE_baseline, RMSE_baseline
 
 
 
@@ -138,6 +155,6 @@ def model_significance(ols_model):
 
     P = ols_model.f_pvalue
 
-    return f"The amount of variance explained in this modle is {round(R2, 3)} and the Pvalue for the modle is {round(P, 6)}."
+    return f"The amount of variance explained in this modle is {round(R2, 3)} and the P_value for the modle is {round(P, 6)}."
 
 model_significance(ols_model)
