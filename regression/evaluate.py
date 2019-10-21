@@ -10,7 +10,7 @@ from sklearn.metrics import mean_squared_error, r2_score, explained_variance_sco
 from sklearn.feature_selection import f_regression 
 from math import sqrt
 import matplotlib.pyplot as plt
-%matplotlib inline
+#%matplotlib inline
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -84,7 +84,7 @@ def regression_errors(y, yhat):
         'tss': ess + sse,
     }
 
-regression_errors(y,yhat)
+
 
 # Write a function, baseline_mean_errors(y), that takes in your target, y, 
 # computes the SSE, MSE & RMSE 
@@ -135,7 +135,7 @@ def better_than_baseline(y,yhat):
 
     return R2_test > R2_base
 
-better_than_baseline(y,yhat)
+
 
 # Write a function, model_significance(ols_model), that takes the ols model as input and returns the amount of variance explained in your model,
 # and the value telling you whether the correlation between the model and the tip value are statistically significant.
@@ -157,4 +157,3 @@ def model_significance(ols_model):
 
     return f"The amount of variance explained in this modle is {round(R2, 3)} and the P_value for the modle is {round(P, 6)}."
 
-model_significance(ols_model)
