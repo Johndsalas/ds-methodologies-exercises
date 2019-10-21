@@ -43,3 +43,40 @@ def wrangle_telco():
     df = df.dropna()
    
     return df
+
+
+# Exercises
+# The end product of this exercise is a jupyter notebook (classification_exercises.ipynb) and acquire.py. The notebook will contain all your work as you move through the exercises. The acquire.py file should contain the final functions.
+
+# In a jupyter notebook, classification_exercises.ipynb:
+
+# Use a python module containing datasets as a source from the iris data. Create a pandas dataframe, df_iris, from this data.
+
+# print the first 3 rows
+# print the number of rows and columns (shape)
+# print the column names
+# print the data type of each column
+# print the summary statistics for each of the numeric variables. Would you recommend rescaling the data based on these statistics?
+
+# Read Table1_CustDetails the excel module dataset, Excel_Exercises.xlsx, into a dataframe, df_excel
+
+# assign the first 100 rows to a new dataframe, df_excel_sample
+# print the number of rows of your original dataframe
+# print the first 5 column names
+# print the column names that have a data type of object
+# compute the range for each of the numeric variables.
+
+
+# Read the data from this google sheet into a dataframe, df_google
+
+# print the first 3 rows
+# print the number of rows and columns
+# print the column names
+# print the data type of each column
+# print the summary statistics for each of the numeric variables
+# print the unique values for each of your categorical variables
+
+
+def get_titanic_data():
+    
+    return pd.read_sql('SELECT * FROM passengers', get_connection('titanic_db'))
