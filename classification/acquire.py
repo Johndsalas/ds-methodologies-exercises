@@ -1,21 +1,8 @@
-# Throughout the exercises for Regression in Python lessons, you will use the following example scenario: 
-# As a customer analyst, I want to know who has spent the most money with us over their lifetime. 
-# I have monthly charges and tenure, so I think I will be able to use those two attributes as features to estimate total_charges. 
-# I need to do this within an average of $5.00 per customer.
-# The first step will be to acquire and prep the data. 
-# Do your work for this exercise in a file named wrangle.py.
-# Acquire customer_id, monthly_charges, tenure, and total_charges from telco_churn database for all customers with a 2 year contract.
-# Walk through the steps above using your new dataframe. 
-# You may handle the missing values however you feel is appropriate.
-# End with a python file wrangle.py that contains the function, 
-# wrangle_telco(), that will acquire the data and return a dataframe cleaned with no missing values.
-
 import warnings
 warnings.filterwarnings('ignore')
 
 import pandas as pd
 import numpy as np
-
 from env import host, user, password
 
 def wrangle_telco():
@@ -45,38 +32,94 @@ def wrangle_telco():
     return df
 
 
-# Exercises
-# The end product of this exercise is a jupyter notebook (classification_exercises.ipynb) and acquire.py. The notebook will contain all your work as you move through the exercises. The acquire.py file should contain the final functions.
-
-# In a jupyter notebook, classification_exercises.ipynb:
-
-# Use a python module containing datasets as a source from the iris data. Create a pandas dataframe, df_iris, from this data.
-
-# print the first 3 rows
-# print the number of rows and columns (shape)
-# print the column names
-# print the data type of each column
-# print the summary statistics for each of the numeric variables. Would you recommend rescaling the data based on these statistics?
-
-# Read Table1_CustDetails the excel module dataset, Excel_Exercises.xlsx, into a dataframe, df_excel
-
-# assign the first 100 rows to a new dataframe, df_excel_sample
-# print the number of rows of your original dataframe
-# print the first 5 column names
-# print the column names that have a data type of object
-# compute the range for each of the numeric variables.
-
-
-# Read the data from this google sheet into a dataframe, df_google
-
-# print the first 3 rows
-# print the number of rows and columns
-# print the column names
-# print the data type of each column
-# print the summary statistics for each of the numeric variables
-# print the unique values for each of your categorical variables
-
-
 def get_titanic_data():
+
+    import env
+
+def get_connection(db, user=env.user, host=env.host, password=env.password):
+    
+    return f'mysql+pymysql://{user}:{password}@{host}/{db}'
+
+df = pd.read_sql('SELECT * FROM passengers', get_connection('titanic_db'))
+
+df.head()
     
     return pd.read_sql('SELECT * FROM passengers', get_connection('titanic_db'))
+
+database = 'titanic_db'
+query = '''
+        SELECT * 
+        FROM passengers 
+        LIMIT 5
+        '''
+
+
+import warnings
+warnings.filterwarnings('ignore')
+
+import pandas as pd
+import numpy as np
+
+from env import host, user, password
+
+
+def get_sql(database,query):
+
+    import pandas as pd
+    import env
+
+    def get_connection(db, user=env.user, host=env.host, password=env.password):
+        return f'mysql+pymysql://{user}:{password}@{host}/{db}'
+
+    df = pd.read_sql(query, get_connection(database))
+
+    return df
+
+
+
+def get_sql(database,query):
+
+    import pandas as pd
+    import env
+
+    def get_connection(db, user=env.user, host=env.host, password=env.password):
+        return f'mysql+pymysql://{user}:{password}@{host}/{db}'
+
+    df = pd.read_sql(query, get_connection(database))
+
+    return df
+
+def get_titanic_data():
+
+    import pandas as pd
+    import env
+
+    def get_connection(db, user=env.user, host=env.host, password=env.password):
+        return f'mysql+pymysql://{user}:{password}@{host}/{db}'
+
+    df = pd.read_sql('SELECT * FROM passengers', get_connection('titanic_db'))
+
+    return df
+
+def get_iris_data():
+
+    import pandas as pd
+    import env
+
+    def get_connection(db, user=env.user, host=env.host, password=env.password):
+        return f'mysql+pymysql://{user}:{password}@{host}/{db}'
+
+    query = '''
+            SELECT * 
+            FROM measurements
+            JOIN species
+            USING (species_id)
+            '''
+
+    df = pd.read_sql(query, get_connection('iris_db'))
+
+    return df
+
+df = get_iris_data()
+
+df.head()
