@@ -31,29 +31,6 @@ def wrangle_telco():
    
     return df
 
-
-def get_titanic_data():
-
-    import env
-
-def get_connection(db, user=env.user, host=env.host, password=env.password):
-    
-    return f'mysql+pymysql://{user}:{password}@{host}/{db}'
-
-df = pd.read_sql('SELECT * FROM passengers', get_connection('titanic_db'))
-
-df.head()
-    
-    return pd.read_sql('SELECT * FROM passengers', get_connection('titanic_db'))
-
-database = 'titanic_db'
-query = '''
-        SELECT * 
-        FROM passengers 
-        LIMIT 5
-        '''
-
-
 import warnings
 warnings.filterwarnings('ignore')
 
