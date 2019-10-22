@@ -1,6 +1,7 @@
 import warnings
 warnings.filterwarnings('ignore')
 
+from sklearn.preprocessing import LabelEncoder
 import pandas as pd
 import numpy as np
 from env import host, user, password
@@ -97,6 +98,12 @@ def get_iris_data():
 
     return df
 
-df = get_iris_data()
 
-df.head()
+def prep_iris(df):
+
+    encoder = LabelEncoder()
+    df.species_name.fillna('Unknown', inplace=True)
+    encoder.fit(df.species_name)
+    array = encoder.transform(df.species_name)
+    names = list(encoder.inverse_transform(array))
+    return names
