@@ -110,39 +110,3 @@ def get_iris_data():
     return df
 
 
-def prep_iris(df):
-
-    encoder = LabelEncoder()
-    df.species_name.fillna('Unknown', inplace=True)
-    encoder.fit(df.species_name)
-    array = encoder.transform(df.species_name)
-    names = list(encoder.inverse_transform(array))
-    return names
-
-def prep_titanic(tdf):
-
-    imp_mode = SimpleImputer(missing_values=np.nan, strategy='most_frequent')
-    imp_mode.fit(tdf[['embarked']])
-    tdf['embarked'] = imp_mode.transform(tdf[['embarked']])
-
-    imp_mode = SimpleImputer(missing_values=np.nan, strategy='most_frequent')
-    imp_mode.fit(tdf[['embark_town']])
-    tdf['embark_town'] = imp_mode.transform(tdf[['embark_town']])
-
-    imp_mode = SimpleImputer(missing_values=np.nan, strategy='most_frequent')
-    imp_mode.fit(tdf[['embarked']])
-    tdf['embarked'] = imp_mode.transform(tdf[['embarked']])
-
-    int_encoder = LabelEncoder()
-    int_encoder.fit(tdf.embarked)
-    tdf_embarked = int_encoder.transform(tdf.embarked)
-
-    scaler = MinMaxScaler()
-    scaler.fit(tdf[['fare']])
-    tdf.fare = scaler.transform(tdf[['fare']])
-
-    scaler = MinMaxScaler()
-    scaler.fit(tdf[['age']])
-    tdf.age = scaler.transform(tdf[['age']])
-
-    return tdf
