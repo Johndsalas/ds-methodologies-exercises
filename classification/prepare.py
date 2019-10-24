@@ -23,6 +23,15 @@ def prep_iris(df):
     df = df.rename(columns={'species_name':'species'})
     encoder = LabelEncoder()
     df.species.fillna('Unknown')
+    return df
+
+
+def prep_iris_encode(df):
+
+    df = df.drop(columns=['species_id','measurement_id'])
+    df = df.rename(columns={'species_name':'species'})
+    encoder = LabelEncoder()
+    df.species.fillna('Unknown')
     encoder.fit(df.species)
     array = encoder.transform(df.species)
     names = list(encoder.inverse_transform(array))
