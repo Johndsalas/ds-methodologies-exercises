@@ -84,12 +84,6 @@ def get_telco():
     return df
 
 
-def split_my_data(x, y, train_pct):
-
-    x_train, x_test, y_train, y_test =  train_test_split(x,y, train_size = train_pct, random_state = 999)
-
-    return x_train, x_test, y_train, y_test
-
 def split_data_whole(df,train_pct=.7):
 
     train, test = train_test_split(df, train_size = train_pct, random_state = 999)
@@ -109,48 +103,6 @@ def standard_scaler(train,test):
 
     return train_scaled, test_scaled, scaler
 
-
-    
-def baseline_mean_errors(df,column):
-  
-    df['baseline'] = df[column].mean()
-
-    n = len(df)
-   
-    SSE_base = sum((df.baseline - df[column])**2)
-    MSE_base = SSE_base / n
-    RMSE_base = math.sqrt(MSE_base)
-
-    df.drop(columns='baseline')
-
-    return SSE_base, MSE_base, RMSE_base, n
-        
-
-def get_yhat(df,x_col,y_col):
-    lr=LinearRegression()
-    lr.fit(df[x_col],df[[y_col]])
-    predictions=lr.predict(df[x_col])
-    predictions_df = pd.DataFrame({'yhat':predictions.flatten()})
-    
-    return predictions_df
-
-def regression_errors(y, yhat):
-    '''
-    Returns a dictionary containing various regression error metrics.
-    '''
-    yhat['y']=y.reset_index(drop=True)
-    yhat['residual']=yhat.yhat-yhat.y
-    
-    ybar = yhat['y'].mean()
-    n = len(yhat)
-
-    sse = sum(yhat.residual**2)
-    mse = sse / n
-    rmse = math.sqrt(sse / n)
-    ess = ((yhat - ybar)**2).sum()
-    tss = ess + sse
-    
-    return sse, mse, rmse, ess, tss
 
 def get_t_test(var_1,var_2):
 
