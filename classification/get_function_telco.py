@@ -89,28 +89,3 @@ def split_data_whole(df,train_pct=.7):
     train, test = train_test_split(df, train_size = train_pct, random_state = 999)
 
     return train, test
-
-
-
-
-def standard_scaler(train,test):
-
-    scaler = StandardScaler(copy=True, with_mean=True, with_std=True).fit(train)
-
-    train_scaled = pd.DataFrame(scaler.transform(train), columns=train.columns.values).set_index([train.index.values])
-
-    test_scaled = pd.DataFrame(scaler.transform(test), columns=test.columns.values).set_index([test.index.values])
-
-    return train_scaled, test_scaled, scaler
-
-
-def get_t_test(var_1,var_2):
-
-    print("T-test Results:")
-    print(stats.ttest_ind(var_1, var_2))
-
-
-def get_pearsons_r(var_1,var_2):
-
-    print("Pearson's r Results:")
-    print(stats.pearsonr(var_1,var_2))
