@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>zillow</string>
+			<key>host</key>
+			<string>157.230.209.171</string>
+			<key>kcid</key>
+			<string>6700235227374837647</string>
+			<key>name</key>
+			<string>Data Science Database</string>
+			<key>port</key>
+			<integer>3306</integer>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>bayes_828</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>latin1</string>
+			<key>contentFilter</key>
+			<dict/>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGOTpYJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoK0HCBUWFxgZHSQoLDE2VSRudWxs0wkK
+			CwwQFFdOUy5rZXlzWk5TLm9iamVjdHNWJGNsYXNzow0OD4ACgAOA
+			BKMREhOABYAGgAiADFR0eXBlVHJvd3NUa2V5c18QJlNlbGVjdGlv
+			bkRldGFpbFR5cGVQcmltYXJ5S2V5ZWREZXRhaWxz0wkKCxobHKCg
+			gAfSHh8gIVokY2xhc3NuYW1lWCRjbGFzc2VzXxATTlNNdXRhYmxl
+			RGljdGlvbmFyeaMgIiNcTlNEaWN0aW9uYXJ5WE5TT2JqZWN00goL
+			JSehJoAJgAvSCykqK1lOUy5zdHJpbmeAClhwYXJjZWxpZNIeHy0u
+			XxAPTlNNdXRhYmxlU3RyaW5noy0vMFhOU1N0cmluZ1hOU09iamVj
+			dNIeHzIzXk5TTXV0YWJsZUFycmF5ozI0NVdOU0FycmF5WE5TT2Jq
+			ZWN00h4fIjeiIjhYTlNPYmplY3RfEA9OU0tleWVkQXJjaGl2ZXLR
+			OzxUZGF0YYABAAgAEQAaACMALQAyADcARQBLAFIAWgBlAGwAcABy
+			AHQAdgB6AHwAfgCAAIIAhwCMAJEAugDBAMIAwwDFAMoA1QDeAPQA
+			+AEFAQ4BEwEVARcBGQEeASgBKgEzATgBSgFOAVcBYAFlAXQBeAGA
+			AYkBjgGRAZoBrAGvAbQAAAAAAAACAQAAAAAAAAA9AAAAAAAAAAAA
+			AAAAAAABtg==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 9019}, {1103, 688}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>SELECT p_17.parcelid, p_17.logerror, p_17.transactiondate, p.*
+
+FROM predictions_2017 p_17
+
+JOIN (SELECT parcelid, Max(transactiondate) as tdate
+      
+      FROM predictions_2017
+        
+      GROUP BY parcelid )as sq1
+
+ON (sq1.parcelid=p_17.parcelid and sq1.tdate = p_17.transactiondate )
+    
+LEFT JOIN properties_2017 p 
+ON p_17.parcelid=p.parcelid
+
+LEFT JOIN storytype
+USING (storytypeid)
+
+LEFT JOIN airconditioningtype
+USING (airconditioningtypeid)
+
+LEFT JOIN architecuralstyletyp
+USING (architecuralstyletypeid)
+
+LEFT JOIN buildingclasstype
+USING (buildingclasstypeid)
+
+LEFT JOIN heatingorsystemtype
+USING (heatingorsystemtypeid)
+
+LEFT JOIN propertylandusetype
+USING (propertylandusetypeid)
+
+LEFT JOIN typeconstructiontype
+USING (typeconstructiontypeid)
+
+LEFT JOIN
+
+WHERE (p.latitude is not null and p.longitude is not null);
+				 
+				  
+
+				  
+select *
+from storytype;
+</string>
+			<key>table</key>
+			<string>unique_properties</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>200</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>SELECT p_17.parcelid, p_17.logerror, p_17.transactiondate, p.*
+
+FROM predictions_2017 p_17
+
+JOIN (SELECT parcelid, Max(transactiondate) as tdate
+      
+      FROM predictions_2017
+        
+      GROUP BY parcelid )as sq1
+
+ON (sq1.parcelid=p_17.parcelid and sq1.tdate = p_17.transactiondate )
+    
+JOIN properties_2017 p 
+ON p_17.parcelid=p.parcelid
+
+JOIN storytype
+USING (storytypeid)
+
+WHERE (p.latitude is not null and p.longitude is not null)</string>
+		<string>SELECT p_17.parcelid, p_17.logerror, p_17.transactiondate, p.*
+
+FROM predictions_2017 p_17
+
+JOIN (SELECT parcelid, Max(transactiondate) as tdate
+      
+      FROM predictions_2017
+        
+      GROUP BY parcelid )as sq1
+
+ON (sq1.parcelid=p_17.parcelid and sq1.tdate = p_17.transactiondate )
+    
+JOIN properties_2017 p 
+ON p_17.parcelid=p.parcelid
+
+WHERE (p.latitude is not null and p.longitude is not null)</string>
+		<string>SELECT p_17.parcelid, p_17.logerror, p_17.transactiondate, p.*
+
+FROM predictions_2017 p_17
+
+JOIN (SELECT parcelid, Max(transactiondate) as tdate
+      
+      FROM predictions_2017
+        
+      GROUP BY parcelid )as sq1
+
+ON (sq1.parcelid=p_17.parcelid and sq1.tdate = p_17.transactiondate )
+    
+JOIN properties_2017 p 
+ON p_17.parcelid=p.parcelid
+
+JOIN airconditioningtype a
+USING (airconditioningtype)
+
+WHERE (p.latitude is not null and p.longitude is not null)</string>
+		<string>SELECT p2.*, p1.logerror 
+    
+FROM predictions_2017 p1
+        
+LEFT JOIN properties_2017 p2  
+USING(parcelid)
+
+
+WHERE parcelid in (SELECT parcelid, max(transactiondate)
+
+				  FROM properties_2017
+				
+				  JOIN predictions_2017
+				  USING (parcelid)
+				 					
+				 GROUP BY parcelid</string>
+		<string>SELECT p2.*, p1.logerror 
+    
+FROM predictions_2017 p1
+        
+LEFT JOIN properties_2017 p2  
+USING(parcelid)
+
+
+WHERE parcelid in (SELECT parcelid
+
+				  FROM properties_2017
+				
+				  JOIN predictions_2017
+				  USING (parcelid)
+				  
+				  WHERE transactiondate = max(transactiondate)
+				 					
+				 GROUP BY parcelid)</string>
+		<string>SELECT p2.*, p1.logerror 
+    
+FROM predictions_2017 p1
+        
+LEFT JOIN properties_2017 p2  
+USING(parcelid)
+
+
+WHERE parcelid = (SELECT parcelid
+
+				  FROM properties_2017
+				
+				  JOIN predictions_2017
+				  USING (parcelid)
+				 					
+				 GROUP BY parcelid)</string>
+		<string>SELECT p2.*, p1.logerror 
+    
+FROM predictions_2017 p1
+        
+LEFT JOIN properties_2017 p2  
+USING(parcelid)
+
+
+WHERE parcelid = (SELECT parcelid, transactiondate(max)
+
+				  FROM properties_2017
+				
+				  JOIN predictions_2017
+				  USING (parcelid)
+				 					
+				 GROUP BY parcelid)</string>
+		<string>SELECT p2.*, p1.logerror 
+    
+FROM predictions_2017 p1
+        
+LEFT JOIN properties_2017 p2  
+USING(parcelid)
+
+
+WHERE parcelid = (SELECT parcelid, transactiondate(max)
+
+				  					FROM properties_2017
+				
+				  					JOIN predictions_2017
+				 					USING (parcelid)
+				 					
+				 			
+
+				  					GROUP BY parcelid)</string>
+		<string>SELECT p2.*, p1.logerror 
+    
+FROM predictions_2017 p1
+        
+LEFT JOIN properties_2017 p2  
+USING(parcelid)
+
+
+WHERE parcelid in (SELECT parcelid
+
+				  FROM properties_2017
+				
+				  JOIN predictions_2017
+				  USING (parcelid)
+
+				  GROUP BY parcelid)</string>
+		<string>SELECT p2.*, p1.logerror 
+    
+FROM predictions_2017 p1
+        
+LEFT JOIN properties_2017 p2  
+USING(parcelid)
+
+
+WHERE parcelid in (SELECT parcelid
+
+				  FROM properties_2017
+				
+				  JOIN predictions_2017
+				  USING parcelid
+
+				  GROUP BY parcelid)</string>
+		<string>SELECT p2.*, p1.logerror 
+    
+FROM predictions_2017 p1
+        
+LEFT JOIN properties_2017 p2  
+USING(parcelid)
+
+
+WHERE parcelid in (SELECT parcelid
+
+				  FROM properties_2017
+				
+				  JOIN predictions_2017
+
+				  GROUP BY parcelid)</string>
+		<string>SELECT parcelid
+
+	FROM properties_2017
+
+	GROUP BY parcelid</string>
+		<string>SELECT parcelid
+
+FROM predictions_2017
+        
+LEFT JOIN properties_2017
+USING(parcelid)
+
+GROUP BY parcelid</string>
+		<string>SELECT parcelid
+
+FROM predictions_2017
+        
+LEFT JOIN properties_2017
+USING(parcelid)
+  
+WHERE transactiondate = max(transactiondate)
+
+GROUP BY parcelid</string>
+		<string>SELECT parcelid, max(transactiondate)
+
+FROM predictions_2017
+        
+LEFT JOIN properties_2017
+USING(parcelid)
+  
+GROUP BY parcelid
+
+WHERE transactiondate = max(transactiondate)</string>
+		<string>SELECT parcelid, max(transactiondate)
+
+FROM predictions_2017
+        
+LEFT JOIN properties_2017
+USING(parcelid)
+  
+GROUP BY parcelid</string>
+		<string>SELECT parcelid, max(transactionid)
+
+FROM predictions_2017
+        
+LEFT JOIN properties_2017
+USING(parcelid)
+  
+GROUP BY parcelid</string>
+		<string>SELECT parcelid max(transactionid)
+
+FROM predictions_2017
+        
+LEFT JOIN properties_2017
+USING(parcelid)
+  
+GROUP BY parcelid</string>
+		<string>SELECT *, max(transactiondate)
+
+FROM predictions_2017
+        
+LEFT JOIN properties_2017
+USING(parcelid)
+  
+GROUP BY parcelid</string>
+		<string>SELECT DISTINCT parcelid, max(transactiondate)
+
+
+FROM predictions_2017
+        
+LEFT JOIN properties_2017
+USING(parcelid)
+  
+GROUP BY parcelid</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>5.7.27-0ubuntu0.18.04.1-log</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>
