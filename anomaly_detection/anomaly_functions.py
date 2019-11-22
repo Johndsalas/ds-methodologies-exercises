@@ -58,3 +58,26 @@ def get_lower_and_upper_bounds(series, multiplier):
     
     return upper_bound, lower_bound
    
+def get_outlire_graph(df):
+    '''
+    Function takes in a dataframe and prints a graph of outliers at the 2 and 3 sigma level
+    '''
+
+    # create list of columns in the data frame that contain int or float values 
+    lst = [column for column in df.columns if df[f'{column}'].dtype in ('int64','float64')]
+
+    # loop through list and append a column to the datafram that identifies inliers at 2nd and 3rd sigma level
+    for column in lst:
+
+        df[f'{column}' + '_2sig_inlires'] = (df[[f'{column}']]<=df[[f'{column}']].quantile(.95)) & (df[[f'{column}']]>=df[[f'{column}']].quantile(.05))
+        df[f'{column}' + '_3sig_inlires'] = (df[[f'{column}']]<=df[[f'{column}']].quantile(.997300203936740)) & (df[[f'{column}']]>=df[[f'{column}']].quantile(.002699796063259985))
+    
+    # loop through list and print a scatterplot showing outliers
+    for column in lst:
+
+        plt.figure(figsize=(16, 6))
+        sns.scatterplot(data=df[f'{column}'][(df[f'{column}_2sig_inlires'] == True) & (df[f'{column}_3sig_inlires'] == True)])
+        sns.scatterplot(data=df[f'{column}'][(df[f'{column}_2sig_inlires'] == False) & (df[f'{column}_3sig_inlires'] == False)])
+        sns.scatterplot(data=df[f'{column}'][(df[f'{column}_2sig_inlires'] == False) & (df[f'{column}_3sig_inlires'] == True)])
+        plt.title(f"{column} Outliers")
+        plt.show()
