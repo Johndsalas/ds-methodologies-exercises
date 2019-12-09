@@ -18,12 +18,12 @@ def get_ASCII(article):
     return article
 
 
-def purge_special_characters(article):
+def purge_non_characters(article):
     '''
     removes special characters from a string
     '''
     
-    article = re.sub(r"[^a-z0-9'\s]", '', article)
+    article = re.sub(r"[^a-z\s]", '', article)
     
     return article
 
@@ -40,8 +40,8 @@ def basic_clean(article):
     # convert to ASCII characters
     article = get_ASCII(article)
 
-    # remove special characters
-    article = purge_special_characters(article)
+    # remove non characters
+    article = purge_non_characters(article)
     
     return article
 
@@ -158,8 +158,8 @@ def prep_article(df):
     # create column applying basic_cleaning and lemmatize functions
     df['lemmatized'] = df.content.apply(basic_clean).apply(lemmatize)
 
-    # create column applying basic_cleaning and remove_stopwords functions
-    df['clean'] = df.content.apply(basic_clean).apply(remove_stopwords)
+    # create column applying basic_cleaning, remove_stopwords, and stem functions
+    df['clean'] = df.content.apply(basic_clean).apply(remove_stopwords).apply(stem)
 
     # drop content column
     df = df.drop(columns=['content','Unnamed: 0'])
