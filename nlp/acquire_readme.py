@@ -24,8 +24,9 @@ def get_sub_list(topic_url):
     soup = BeautifulSoup(response.text,'html.parser')
 
     # get articles from soup object
-    articles = soup.select(".form")
+    articles = soup.select('div', class_='form')
     print(articles)
+    
     # create empty list
     sub_list = []
     
