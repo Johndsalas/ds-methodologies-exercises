@@ -3,3 +3,8 @@ __pycache__
 env.py
 .DS_Store
 .vscode
+case.csv
+dept.csv
+source.csv
+*.csv
+AllCards.json
